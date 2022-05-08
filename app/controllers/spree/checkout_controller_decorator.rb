@@ -35,7 +35,7 @@ module Spree
                 
       results = HTTParty.post("https://shop.burux.com/api/PaymentService/Request", options)
       payment_url = results[:InvoiceUrl]
-      RequestID = results[:RequestID]
+      requestID = results[:RequestID]
   end
 
 
