@@ -8,5 +8,5 @@ end
 gem 'spree', github: 'spree/spree', branch: 'main'
 # gem 'spree_backend', github: 'spree/spree', branch: 'main'
 gem 'rails-controller-testing'
-#gem 'httparty', '~> 0.13.7'
+gem 'faraday', '~> 2.3'
 gemspec
