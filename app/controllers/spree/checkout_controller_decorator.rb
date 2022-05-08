@@ -1,4 +1,6 @@
-require "httparty"
+require 'faraday'
+require 'faraday/net_http'
+Faraday.default_adapter = :net_http
 
 module Spree
   module CheckoutWithBrx
@@ -22,22 +24,18 @@ module Spree
     end
 
     def get_payment_url
-      amount = @order.amount 
-      options = { :body => 
-  {
-    "App":"SpreeApp",
-    "Type":"INV",
-    "Price":amount,
-    "Model":"{PaymentTitle:'پرداخت سفارش شماره تست بابت خرید از فروشگاه ویزیتور ها'}",
-    "CallbackAction":"RedirectToUrl",
-    "ForceRedirectBank":"true",
-    "CallbackUrl":"www.burux.ir"
-  }
-}
-                
-      results = HTTParty.post("https://shop.burux.com/api/PaymentService/Request", options)
-      payment_url = results[:InvoiceUrl]
-      requestID = results[:RequestID]
+            amount = @order.amount  
+      conn = Faraday.new(
+      url: 'https://shop.burux.com/api/PaymentService/Request',
+      headers: {'Content-Type' => 'application/json'}
+      )
+
+      response = conn.post('', '{"App": "SpreeApp", "Type": "INV", "Price": amount, "Model": "{PaymentTitle:'پرداخت سفارش شماره تست بابت خرید از فروشگاه ویزیتور ها'}", "CallbackAction": "RedirectToUrl", "ForceRedirectBank": "true", "CallbackUrl": "www.burux.ir"}',
+      "Content-Type" => "application/json")
+    end
+
+      payment_url = response[:InvoiceUrl]
+      requestID = response[:RequestID]
     end  
   end
 

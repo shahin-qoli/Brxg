@@ -49,7 +49,6 @@ PATH
   remote: .
   specs:
     spree_brx_payment (0.0.1)
-      faraday (>= 1.10.0)
       spree (>= 4.4.0)
       spree_extension
 
@@ -507,7 +506,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  faraday (>= 1.10.0)
   rails-controller-testing
   spree!
   spree_brx_payment!
