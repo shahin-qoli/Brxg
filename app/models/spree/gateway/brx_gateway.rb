@@ -4,10 +4,11 @@ module Spree
     def provider_class
       Spree::Gateway::BrxGateway
     end
+    """
     def payment_source_class
       Spree::CreditCard
     end
-
+    """
     def method_type
       'brx'
     end
