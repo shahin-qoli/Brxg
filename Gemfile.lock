@@ -305,7 +305,7 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.5-x86_64-linux)
+    nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
     octokit (4.22.0)
       faraday (>= 0.9)
@@ -512,7 +512,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  httparty (~> 0.13.7)
   rails-controller-testing
   spree!
   spree_brx_payment!
