@@ -20,9 +20,8 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split("\n").reject { |f| f.match(/^spec/) && !f.match(/^spec\/fixtures/) }
   s.require_path = 'lib'
   s.requirements << 'none'
-  s.add_dependency 'httparty', '~> 0.13.7'
   s.add_dependency 'spree', '>= 4.4.0'
   s.add_dependency 'spree_extension'
-
+  s.add_runtime_dependency 'httparty', '~> 0.13.7'
   s.add_development_dependency 'spree_dev_tools'
 end

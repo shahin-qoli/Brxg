@@ -512,6 +512,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  httparty (~> 0.13.7)
   rails-controller-testing
   spree!
   spree_brx_payment!
