@@ -29,7 +29,8 @@ module Spree
       url: 'https://shop.burux.com/api/PaymentService/Request',
       headers: {'Content-Type' => 'application/json'}
       )
-
+      end
+      
       response = conn.post('', '{"App": "SpreeApp", "Type": "INV", "Price": amount, "Model": "{PaymentTitle:'پرداخت سفارش شماره تست بابت خرید از فروشگاه ویزیتور ها'}", "CallbackAction": "RedirectToUrl", "ForceRedirectBank": "true", "CallbackUrl": "www.burux.ir"}',
       "Content-Type" => "application/json")
     end
