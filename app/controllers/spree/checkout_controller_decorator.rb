@@ -1,3 +1,5 @@
+require "httparty"
+
 module Spree
   module CheckoutWithBrx
     # If we're currently in the checkout
