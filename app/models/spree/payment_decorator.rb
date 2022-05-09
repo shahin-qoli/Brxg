@@ -1,5 +1,4 @@
-module Spree
-	module PaymentDecorator
+module Spree::PaymentDecorator
 		extend ActiveSupport::Concern
 
 		prepend do
@@ -7,10 +6,11 @@ module Spree
 			accepts_nested_attributes_for :present_note, reject_if: :all_blank
 		end
 		
-		def payment_request_with_default
-            payment_request || build_payment_request
+	    def payment_request_with_default
+                    payment_request || build_payment_request
         end
-    end
 end
 
-Spree::Payment.prepend Spree::PaymentDecorator
+
+
+Spree::Payment.prepend(Spree::PaymentDecorator)   
