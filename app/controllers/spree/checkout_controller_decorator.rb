@@ -3,7 +3,7 @@ require 'json'
 
 module Spree
   module CheckoutWithBrx
-    
+    include 'httparty'
     # If we're currently in the checkout
     def update
       if payment_params_valid? && paying_with_brx?
@@ -24,9 +24,9 @@ module Spree
     end
 
     def get_payment_url
-      include 'httparty'
+
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
-      response = get_payment_url.post(request_url, { :body => [{ :App => 'Spree', 
+      response = CheckoutWithBrx.post(request_url, { :body => [{ :App => 'Spree', 
                :Type => 'Inv', 
                :Price => @order.amount, 
                :Model => '{PaymentTitle:"first try"}', 
