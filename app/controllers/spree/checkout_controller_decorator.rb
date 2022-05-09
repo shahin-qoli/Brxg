@@ -14,6 +14,7 @@ module Spree
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
           get_payment_url
+          payment_url = output['payment_url']
           redirect_to payment_url
         else
           render :edit
@@ -22,9 +23,13 @@ module Spree
         super
       end
     end
+    
+    def cleanup string
+      string.titleize
+    end
 
     def get_payment_url
-
+      output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
       response = HTTParty.post(request_url, { :body => [{ :App => 'Spree', 
                :Type => 'Inv', 
@@ -35,9 +40,9 @@ module Spree
                :CallbackUrl => 'www.burux.ir',
              }].to_json,
     :headers => { 'Content-Type' => 'application/json' }})
-    
-      return payment_url = response[:InvoiceUrl]
-      return requestID = response[:RequestID]
+      output[:payment_url] = cleanup(response.body[:InvoiceUrl])
+      output[:requestID] = cleanup(response.body[:RequestID])
+      return output
     end  
   end
 
