@@ -3,7 +3,7 @@ module Spree::PaymentDecorator
 
 		prepend do
 			has_one :payment_request, class_name: 'Spree::PaymentRequest', dependent: :destroy
-			accepts_nested_attributes_for :present_note, reject_if: :all_blank
+			accepts_nested_attributes_for :payment_request, reject_if: :all_blank
 		end
 		
 	    def payment_request_with_default
@@ -13,4 +13,4 @@ end
 
 
 
-Spree::Payment.prepend(Spree::PaymentDecorator)   
+Spree::Payment.prepend Spree::PaymentDecorator 
