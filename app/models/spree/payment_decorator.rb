@@ -13,4 +13,4 @@ end
 
 
 
-Spree::Payment.prepend(Spree::PaymentDecorator) 
+Spree::Payment.include(Spree::PaymentDecorator) 
