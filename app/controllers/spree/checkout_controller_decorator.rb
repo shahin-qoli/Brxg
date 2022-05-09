@@ -26,14 +26,14 @@ module Spree
     def get_payment_url
       include 'httparty'
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
-      response = get_payment_url.post(request_url, :body => { :App => 'Spree', 
+      response = get_payment_url.post(request_url, { :body => [{ :App => 'Spree', 
                :Type => 'Inv', 
                :Price => @order.amount, 
-               :Model => '{PaymentTitle:'first try'}', 
+               :Model => '{PaymentTitle:"first try"}', 
                :CallbackAction => 'RedirectToUrl',
                :ForceRedirectBank => 'true',
                :CallbackUrl => 'www.burux.ir',
-             }.to_json,
+             }].to_json,
     :headers => { 'Content-Type' => 'application/json' })
       return payment_url = response[:InvoiceUrl]
       return requestID = response[:RequestID]
