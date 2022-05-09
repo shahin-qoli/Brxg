@@ -64,7 +64,7 @@ module Spree
     end
   end
 
-  #CheckoutController.prepend(CheckoutWithBrx)
-  #CheckoutController.prepend(CheckoutControllerDecorator)
-  puts get_payment_url
+  CheckoutController.prepend(CheckoutWithBrx)
+  CheckoutController.prepend(CheckoutControllerDecorator)
+  
 end
