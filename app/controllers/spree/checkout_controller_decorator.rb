@@ -40,8 +40,10 @@ module Spree
                :CallbackUrl => 'www.burux.ir',
              }].to_json,
     :headers => { 'Content-Type' => 'application/json' }})
-      output[:payment_url] = cleanup(response.body[:InvoiceUrl])
-      output[:requestID] = cleanup(response.body[:RequestID])
+      response_object = JSON.parse(response.body)
+      
+      output[:payment_url] = response_object['InvoiceUrl']
+      output[:requestID] = response_object['RequestID'])
       return output
     end  
   end
