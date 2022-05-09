@@ -13,8 +13,7 @@ module Spree
           #mollie_payment_url = "https://burux.ir/"
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
-          get_payment_url
-          payment_url = get_payment_url.output[:payment_url]
+          payment_url = get_payment_url[:payment_url]
           redirect_to payment_url
         else
           render :edit
