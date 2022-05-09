@@ -9,4 +9,5 @@ gem 'spree', github: 'spree/spree', branch: 'main'
 # gem 'spree_backend', github: 'spree/spree', branch: 'main'
 gem 'rails-controller-testing'
 #gem 'faraday' ,'>= 1.10.0'
+gem 'httparty'
 gemspec
