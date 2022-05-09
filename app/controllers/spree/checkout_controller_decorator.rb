@@ -34,7 +34,8 @@ module Spree
                :ForceRedirectBank => 'true',
                :CallbackUrl => 'www.burux.ir',
              }].to_json,
-    :headers => { 'Content-Type' => 'application/json' })
+    :headers => { 'Content-Type' => 'application/json' }})
+    
       return payment_url = response[:InvoiceUrl]
       return requestID = response[:RequestID]
     end  
