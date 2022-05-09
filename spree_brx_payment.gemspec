@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
   s.add_dependency 'spree', '>= 4.4.0'
   s.add_dependency 'spree_extension'
+  s.add_dependency 'httparty'
   #s.add_dependency 'faraday' ,'>= 1.10.0'
   s.add_development_dependency 'spree_dev_tools'
 end

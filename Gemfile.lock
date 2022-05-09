@@ -49,6 +49,7 @@ PATH
   remote: .
   specs:
     spree_brx_payment (0.0.1)
+      httparty
       spree (>= 4.4.0)
       spree_extension
 
