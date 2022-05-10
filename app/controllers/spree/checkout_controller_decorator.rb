@@ -55,7 +55,7 @@ module Spree
       response_object = JSON.parse(response.body)
       if response_object[:IsSuccess] == true
     end
-    
+
     def get_payment_url
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
@@ -78,6 +78,7 @@ module Spree
 
 
   module CheckoutControllerDecorator
+
     def payment_method_id_param
       params[:order][:payments_attributes].first[:payment_method_id]
     end
@@ -96,6 +97,5 @@ module Spree
   
 end
 
-CheckoutController.prepend(CheckoutWithBrx)
-
-CheckoutController.prepend(CheckoutControllerDecorator)
+Spree::CheckoutController.prepend(Spree::CheckoutWithBrx)
+Spree::CheckoutController.prepend(Spree::CheckoutControllerDecorator)
