@@ -36,13 +36,13 @@ module Spree
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
-          redirect_to "https://burux.ir/" 
+          redirect_to "https://burux.com/" 
       else    
           @amount_brx = @checkout_brx['amount']
 
           if @checkout_brx['order_id'] == params['order_id']
-            if verify_payment
-               payment.capture!(@amount_brx)
+            if verify_payment?
+               @order.payment.capture!(@amount_brx)
                redirect_to completion_route
             else
                redirect_to "https://burux.ir/" 
