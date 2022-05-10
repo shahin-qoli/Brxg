@@ -12,9 +12,11 @@ module Spree
           #mollie_payment_url = "https://burux.ir/"
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
-
+          
           request_api = get_payment_url
           payment_url = request_api[:payment_url]
+
+          Spree::PaymentRequest.create({requestid: request_api[:request_id], amount: @order.amount})
           payment.payment_request = request_api[:request_id]
           redirect_to payment_url
         else
