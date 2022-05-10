@@ -35,11 +35,7 @@ module Spree
         redirect_to completion_route
       end  
     end    
-
-
-
-
-    
+  
     def cleanup string
       string.titleize
     end
@@ -54,6 +50,7 @@ module Spree
     :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
       if response_object[:IsSuccess] == true
+      end  
     end
 
     def get_payment_url
@@ -93,8 +90,6 @@ module Spree
     end
   end
 
-
-  
 end
 
 Spree::CheckoutController.prepend(Spree::CheckoutWithBrx)
