@@ -16,7 +16,7 @@ module Spree
           request_api = get_payment_url
           payment_url = request_api[:payment_url]
 
-          Spree::PaymentRequest.create({requestid: request_api[:request_id], amount: @order.amount})
+          Spree::SpreeBrxPayment.create({requestid: request_api[:request_id], amount: @order.amount}, order_id: params['order_id'])
           payment.payment_request = request_api[:request_id]
           redirect_to payment_url
         else
