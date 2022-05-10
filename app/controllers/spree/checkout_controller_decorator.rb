@@ -28,7 +28,7 @@ module Spree
     def getandverify
       #param = Rack::Utils.parse_query URI(getandverify).query
       @request_id_brx = params['reqid']
-      @payment_brx = payment.find_by request_id: @request_id_brx 
+      @payment_brx = Spree::Payment.find_by request_id: @request_id_brx 
       if verify_payment
         payment.capture!
         redirect_to completion_route
