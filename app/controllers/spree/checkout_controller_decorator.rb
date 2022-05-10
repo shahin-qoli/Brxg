@@ -30,9 +30,10 @@ module Spree
       @request_id_brx = param['reqid']
       @payment_brx = payment.find_by request_id: request_id
       if verify_payment
-
-        capture!
+        payment.capture!
         redirect_to completion_route
+      else
+        render :edit   
       end  
     end    
   
