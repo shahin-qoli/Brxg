@@ -33,7 +33,7 @@ module Spree
         payment.capture!
         redirect_to completion_route
       else
-        render :edit   
+        redirect_to "https://burux.ir/" 
       end  
     end    
   
