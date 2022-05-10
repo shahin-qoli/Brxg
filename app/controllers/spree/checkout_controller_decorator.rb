@@ -17,7 +17,7 @@ module Spree
           payment_url = request_api[:payment_url]
 
           Spree::BrxExpressCheckout.create({
-          request_id: request_api[:request_id],
+          request_id: "f83c8ea8-6f7b-4648-b844-ea524311509d", #request_api[:request_id]
           amount: @order.amount, 
           order_id: params['order_id']
         })
@@ -60,11 +60,11 @@ module Spree
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       response = HTTParty.post(request_url, { :body => { :RequestID => @request_id_brx, 
-               :Price => @payment_brx.amount, 
+               :Price => @amount_brx, 
              }.to_json,
     :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
-      if response_object[:IsSuccess] == true
+      if response_object[:IsSuccess] == false
       end  
     end
 
