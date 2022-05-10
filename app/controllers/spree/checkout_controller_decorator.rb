@@ -54,7 +54,8 @@ module Spree
     :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
       if response_object[:IsSuccess] == true
-
+    end
+    
     def get_payment_url
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
