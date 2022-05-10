@@ -91,7 +91,10 @@ module Spree
     end
   end
 
-  CheckoutController.prepend(CheckoutWithBrx)
-  CheckoutController.prepend(CheckoutControllerDecorator)
+
   
 end
+
+CheckoutController.prepend(CheckoutWithBrx)
+
+CheckoutController.prepend(CheckoutControllerDecorator)
