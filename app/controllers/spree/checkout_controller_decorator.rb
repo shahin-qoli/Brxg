@@ -33,13 +33,16 @@ module Spree
 
     def getandverify
       #param = Rack::Utils.parse_query URI(getandverify).query
-      @request_id_brx = params['reqid']
-      @payment_brx = Spree::Payment.find_by request_id: @request_id_brx 
-      if verify_payment
-        payment.capture!
-        redirect_to completion_route
-      else
+      @request_id_brx = get_verify.params['reqid']
+      @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
+      @amount_brx = @checkout_brx['amount']
+      if @checkout_brx['order_id'] == params['order_id']
+        if verify_payment
+          payment.capture!(@amount_brx)
+          redirect_to completion_route
+        else
         redirect_to "https://burux.ir/" 
+        end 
       end  
     end    
   
