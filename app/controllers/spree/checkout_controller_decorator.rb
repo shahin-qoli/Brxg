@@ -42,9 +42,7 @@ module Spree
             if verify_payment?
               order = current_order || raise(ActiveRecord::RecordNotFound)
               order.payments.create!({
-              source: {
-              token: @request_id_brx
-              },
+              source: Spree::BrxExpressCheckout.find_by request_id: @request_id_brx,
               amount: @amount_brx,
               payment_method: payment_method
               })
