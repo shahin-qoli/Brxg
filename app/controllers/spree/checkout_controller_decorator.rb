@@ -68,7 +68,7 @@ module Spree
     :headers => { 'Content-Type' => 'application/json' }})
 3
       response_object = JSON.parse(response.body)
-      output[:status] = response_object['IsSuccess'].to_s
+      output[:status] = response_object['IsSuccess']
       if output[:status] === 'false'
         redirect_to 'https://isna.ir/'
       else
@@ -91,7 +91,7 @@ module Spree
       response_object = JSON.parse(response.body)
       
       output[:payment_url] = response_object['InvoiceUrl']
-      output[:request_id] = responselocalhost:4000/bankpayment/4e6d0f8a-a9f6-4874-bea3-0c5a331a458a/5555/inv_object['RequestID']
+      output[:request_id] = response_object['RequestID']
       return output
     end  
   end
