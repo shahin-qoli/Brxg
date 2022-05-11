@@ -55,9 +55,9 @@ module Spree
                 session[:order_id] = nil
                 redirect_to completion_route(order)
 
-            else
+              else
                 redirect_to checkout_state_path(order.state)
-            end   
+              end   
           end 
       end  
     end    
