@@ -46,10 +46,8 @@ module Spree
                @order.payment.capture!(@amount_brx)
                redirect_to completion_route
             else
-               redirect_to https://burux.ir/ 
+               redirect_to "https://burux.ir/" 
             end   
-            """
-            verify_payment
           end 
       end  
     end    
