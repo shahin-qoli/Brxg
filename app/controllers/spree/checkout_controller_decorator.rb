@@ -68,8 +68,8 @@ module Spree
     :headers => { 'Content-Type' => 'application/json' }})
 3
       response_object = JSON.parse(response.body)
-      output[:status] = response_object['IsSuccess']
-      if output[:status] == false
+      output[:status]? = response_object['IsSuccess']
+      if output[:status]?
         redirect_to 'https://isna.ir/'
       else
         redirect_to 'https://irna.ir/'  
