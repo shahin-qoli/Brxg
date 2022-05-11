@@ -15,13 +15,7 @@ module Spree
           
           request_api = get_payment_url
           payment_url = request_api[:payment_url]
-
-          Spree::BrxExpressCheckout.create({
-          request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
-          amount: @order.amount, 
-          order_id: params['order_id']
-        })
-
+          Gateway::BrxGateway.purchase(@order.amount, params['order_id'])
           redirect_to payment_url
         else
           render :edit
@@ -31,8 +25,11 @@ module Spree
       end
     end
 
+    def payment_method
+      Spree::Gateway::BrxGateway
+    end
+
     def getandverify
-      payment = @order.payments.last
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
@@ -43,10 +40,23 @@ module Spree
           if @checkout_brx['order_id'] == params['order_id']
      
             if verify_payment?
-               payment.capture!(@amount_brx)
-               redirect_to completion_route
+              order = current_order || raise(ActiveRecord::RecordNotFound)
+              order.payments.create!({
+              source: {
+              token: @request_id_brx
+              }),
+              amount: @amount_brx,
+              payment_method: payment_method
+              })
+              order.next
+              if order.complete?
+                flash.notice = Spree.t(:order_processed_successfully)
+                flash[:order_completed] = true
+                session[:order_id] = nil
+                redirect_to completion_route(order)
+
             else
-               redirect_to "https://burux.ir/" 
+                redirect_to checkout_state_path(order.state)
             end   
           end 
       end  
@@ -74,7 +84,7 @@ module Spree
         true
       end  
     end
-
+"""
     def get_payment_url
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
@@ -93,6 +103,7 @@ module Spree
       output[:request_id] = response_object['RequestID']
       return output
     end  
+    """
   end
 
 
