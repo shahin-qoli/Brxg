@@ -15,7 +15,13 @@ module Spree
           
           request_api = get_payment_url
           payment_url = request_api[:payment_url]
-          payment_method.purchase(@order.amount, params['order_id'])
+
+          Spree::BrxExpressCheckout.create({
+          request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
+          amount: @order.amount, 
+          order_id: params['order_id']
+        })
+
           redirect_to payment_url
         else
           render :edit
@@ -25,11 +31,8 @@ module Spree
       end
     end
 
-    def payment_method
-      Spree::Gateway::BrxGateway
-    end
-
     def getandverify
+      payment = @order.payments.last
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
@@ -40,13 +43,8 @@ module Spree
           if @checkout_brx['order_id'] == params['order_id']
      
             if verify_payment?
-              order = current_order || raise(ActiveRecord::RecordNotFound)
-              order.payments.create!({
-              source: Spree::BrxExpressCheckout.find_by(request_id: @request_id_brx),
-              amount: @amount_brx,
-              payment_method: payment_method
-              })
-              order.next
+               payment.capture!(@amount_brx)
+               order.next
               if order.complete?
                 flash.notice = Spree.t(:order_processed_successfully)
                 flash[:order_completed] = true
@@ -56,7 +54,10 @@ module Spree
               else
                 redirect_to checkout_state_path(order.state)
               end
-            end     
+               redirect_to completion_route
+            else
+               redirect_to "https://burux.ir/" 
+            end   
           end 
       end  
     end    
@@ -68,8 +69,14 @@ module Spree
 
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
-      options = { headers: { "Content-Type": "application/json",},
-       body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json}          
+      options = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+
+  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
+}     
+     
       response = HTTParty.post(request_url, options)
 
       response_object = JSON.parse(response.body.tr('[]',''))
@@ -78,6 +85,24 @@ module Spree
       end  
     end
 
+    def get_payment_url
+      output = {}
+      request_url  = 'https://shop.burux.com/api/PaymentService/Request'
+      response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
+               :Type => 'Inv', 
+               :Price => @order.amount, 
+               :Model => '{PaymentTitle:"first try"}', 
+               :CallbackAction => 'RedirectToUrl',
+               :ForceRedirectBank => 'true',
+               :CallbackUrl => 'www.burux.ir',
+             }.to_json,
+    :headers => { 'Content-Type' => 'application/json' }})
+      response_object = JSON.parse(response.body)
+      
+      output[:payment_url] = response_object['InvoiceUrl']
+      output[:request_id] = response_object['RequestID']
+      return output
+    end  
   end
 
 
