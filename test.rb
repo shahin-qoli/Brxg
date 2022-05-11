@@ -1,6 +1,6 @@
 require 'httparty'
 require 'json'
-    def verify_payment
+    def verify_payment?
       output = {}
       @amount = 10000
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
@@ -14,16 +14,15 @@ require 'json'
      
       response = HTTParty.post(request_url, options)
       puts response.code
-      puts @amount
-      puts response.body
       response_object = JSON.parse(response.body.tr('[]',''))             
       if response_object['IsSuccess'] == false
-        puts "on"
-   
+         true
       end  
     end
 
 
-verify_payment
-                
+if verify_payment?
+   puts "on"
+  
+end                
 

@@ -41,8 +41,8 @@ module Spree
           @amount_brx = @checkout_brx['amount']
 
           if @checkout_brx['order_id'] == params['order_id']
-            """
-            if verify_payment.nil?
+     
+            if verify_payment?
                @order.payment.capture!(@amount_brx)
                redirect_to completion_route
             else
@@ -59,7 +59,7 @@ module Spree
     end
 
 
-    def verify_payment
+    def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       options = {
   headers: {
@@ -73,9 +73,7 @@ module Spree
 
       response_object = JSON.parse(response.body.tr('[]',''))
       if response_object['IsSuccess'] == false
-        redirect_to 'https://isna.ir/'
-      else
-        redirect_to 'https://irna.ir/'  
+        true
       end  
     end
 
