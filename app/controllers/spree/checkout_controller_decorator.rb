@@ -43,7 +43,7 @@ module Spree
           if @checkout_brx['order_id'] == params['order_id']
      
             if verify_payment?
-               @order.payment.capture!(@amount_brx)
+               payment.capture!(@amount_brx)
                redirect_to completion_route
             else
                redirect_to "https://burux.ir/" 
