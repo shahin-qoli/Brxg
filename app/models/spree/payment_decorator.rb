@@ -1,4 +1,5 @@
-module Spree::Payment
+module Spree::module PaymentDecorator
+
 
   def capture!(amount = nil) 
       return true if completed?
@@ -8,4 +9,4 @@ module Spree::Payment
       split_uncaptured_amount
   end
 end
-Spree::Payment.prepend(Spree::Payment)
+Spree::Payment.prepend(Spree::PaymentDecorator)
