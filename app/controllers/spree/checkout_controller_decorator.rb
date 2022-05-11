@@ -66,9 +66,10 @@ module Spree
                :Price => @amount_brx, 
              }.to_json,
     :headers => { 'Content-Type' => 'application/json' }})
+
       response_object = JSON.parse(response.body)
-      output[:payment_url] = response_object['IsSuccess']
-      if output[:payment_url].nil?
+      output[:status] = response_object['IsSuccess'].to_s
+      if output[:status].nil?
         redirect_to 'https://isna.ir/'
       else
         redirect_to 'https://irna.ir/'  
