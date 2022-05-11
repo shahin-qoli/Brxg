@@ -1,4 +1,4 @@
-module Spree::module PaymentDecorator
+module Spree::PaymentDecorator
 
 
   def capture!(amount = nil) 

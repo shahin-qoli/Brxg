@@ -17,7 +17,7 @@ module Spree
           payment_url = request_api[:payment_url]
 
           Spree::BrxExpressCheckout.create({
-          request_id: "f83c8ea8-6f7b-4648-b844-ea524311509d", #request_api[:request_id]
+          request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
           amount: @order.amount, 
           order_id: params['order_id']
         })
