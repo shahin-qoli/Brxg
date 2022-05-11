@@ -44,7 +44,7 @@ module Spree
      
             if verify_payment?
                payment.capture!(@amount_brx)
-               order.next
+               @order.next
               if order.complete?
                 flash.notice = Spree.t(:order_processed_successfully)
                 flash[:order_completed] = true
