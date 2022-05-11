@@ -15,7 +15,7 @@ module Spree
           
           request_api = get_payment_url
           payment_url = request_api[:payment_url]
-          Gateway::BrxGateway.purchase(@order.amount, params['order_id'])
+          payment_method.purchase(@order.amount, params['order_id'])
           redirect_to payment_url
         else
           render :edit
