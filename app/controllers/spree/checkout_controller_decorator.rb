@@ -57,7 +57,8 @@ module Spree
 
               else
                 redirect_to checkout_state_path(order.state)
-              end   
+              end
+            end     
           end 
       end  
     end    
