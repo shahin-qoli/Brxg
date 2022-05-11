@@ -44,7 +44,7 @@ module Spree
               order.payments.create!({
               source: {
               token: @request_id_brx
-              }),
+              },
               amount: @amount_brx,
               payment_method: payment_method
               })
