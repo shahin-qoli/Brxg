@@ -69,7 +69,7 @@ module Spree
 
       response_object = JSON.parse(response.body)
       output[:status] = response_object['IsSuccess'].to_s
-      if output[:status].nil?
+      if output[:status] == 'false'
         redirect_to 'https://isna.ir/'
       else
         redirect_to 'https://irna.ir/'  
