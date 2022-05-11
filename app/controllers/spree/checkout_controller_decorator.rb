@@ -41,12 +41,15 @@ module Spree
           @amount_brx = @checkout_brx['amount']
 
           if @checkout_brx['order_id'] == params['order_id']
+            """
             if verify_payment.nil?
                @order.payment.capture!(@amount_brx)
                redirect_to completion_route
             else
                redirect_to "https://burux.ir/" 
             end   
+            """
+            verify_payment
           end 
       end  
     end    
@@ -57,7 +60,6 @@ module Spree
 
 
     def verify_payment
-      output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       response = HTTParty.post(request_url, { :body => { :RequestID => @request_id_brx, 
                :Price => @amount_brx, 
