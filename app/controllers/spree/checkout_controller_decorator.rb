@@ -69,14 +69,8 @@ module Spree
 
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
-      options = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-
-  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
-}     
-     
+      options = { headers: { "Content-Type": "application/json",},
+       body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json}          
       response = HTTParty.post(request_url, options)
 
       response_object = JSON.parse(response.body.tr('[]',''))
@@ -84,26 +78,7 @@ module Spree
         true
       end  
     end
-"""
-    def get_payment_url
-      output = {}
-      request_url  = 'https://shop.burux.com/api/PaymentService/Request'
-      response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
-               :Type => 'Inv', 
-               :Price => @order.amount, 
-               :Model => '{PaymentTitle:"first try"}', 
-               :CallbackAction => 'RedirectToUrl',
-               :ForceRedirectBank => 'true',
-               :CallbackUrl => 'www.burux.ir',
-             }.to_json,
-    :headers => { 'Content-Type' => 'application/json' }})
-      response_object = JSON.parse(response.body)
-      
-      output[:payment_url] = response_object['InvoiceUrl']
-      output[:request_id] = response_object['RequestID']
-      return output
-    end  
-    """
+
   end
 
 
