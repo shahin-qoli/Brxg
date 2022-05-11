@@ -66,7 +66,7 @@ module Spree
                :Price => @amount_brx, 
              }.to_json,
     :headers => { 'Content-Type' => 'application/json' }})
-3
+
       response_object = JSON.parse(response.body)
       output[:status] = response_object['IsSuccess']?
       if output[:status]?
