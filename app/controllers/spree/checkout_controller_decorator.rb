@@ -32,7 +32,7 @@ module Spree
     end
 
     def getandverify
-      #param = Rack::Utils.parse_query URI(getandverify).query
+      payment = @order.payments.last
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
