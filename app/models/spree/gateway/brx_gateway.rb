@@ -16,7 +16,7 @@ module Spree
       'brx'
     end
 
-    def purchase(amount, ordr_id, gateway_options={})
+    def purchase(amount, ordr_id)
         request_url  = 'https://shop.burux.com/api/PaymentService/Request'
         response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
                  :Type => 'Inv', 
