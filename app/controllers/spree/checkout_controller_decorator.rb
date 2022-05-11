@@ -68,7 +68,7 @@ module Spree
     :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
       output[:payment_url] = response_object['IsSuccess']
-      if output[:payment_url].to_s == 'false'
+      if output[:payment_url].nil?
         redirect_to 'https://isna.ir/'
       else
         redirect_to 'https://irna.ir/'  
