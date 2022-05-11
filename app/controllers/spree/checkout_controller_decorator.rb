@@ -60,16 +60,19 @@ module Spree
 
 
     def verify_payment
-      output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
-      response = HTTParty.post(request_url, { :body => { :RequestID => @request_id_brx, 
-               :Price => @amount_brx, 
-             }.to_json,
-    :headers => { 'Content-Type' => 'application/json' }})
+      options = {
+  headers: {
+    "Content-Type": "application/json",
+  },
 
-      response_object = JSON.parse(response.body)
-      output[:status] = response_object['IsSuccess']?
-      if output[:status]?
+  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
+}     
+     
+      response = HTTParty.post(request_url, options)
+
+      response_object = JSON.parse(response.body.tr('[]',''))
+      if response_object['IsSuccess'] == false
         redirect_to 'https://isna.ir/'
       else
         redirect_to 'https://irna.ir/'  
