@@ -44,7 +44,8 @@ module Spree
      
             if verify_payment?
                redirect_to checkout_state_path(:payment)
-               @order.payments.create!({
+               order = current_order || raise(ActiveRecord::RecordNotFound)               
+               order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
                   amount: @amount_brx
