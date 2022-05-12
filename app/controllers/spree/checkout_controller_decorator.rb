@@ -43,7 +43,7 @@ module Spree
           if @checkout_brx['order_id'] == params['order_id']
      
             if verify_payment?
-               redirect_to checkout_state_path(:payment)
+               #redirect_to checkout_state_path(:payment)
                order = current_order || raise(ActiveRecord::RecordNotFound)               
                order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
@@ -58,10 +58,10 @@ module Spree
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
-                  redirect_to completion_route and return
+                  redirect_to(completion_route) and return
 
                else
-                  redirect_to checkout_state_path and return
+                  redirect_to(checkout_state_path) and return
                end
             end   
           end 
