@@ -77,7 +77,7 @@ module Spree
     end
 
     def payment_method
-      payment_method = Spree::Gateway::BrxGateway
+      Spree::PaymentMethod.find(params[:payment_method_id])
     end  
 
 
