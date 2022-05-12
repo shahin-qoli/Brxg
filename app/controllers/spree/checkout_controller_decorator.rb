@@ -77,7 +77,7 @@ module Spree
     end
 
     def payment_method
-      Spree::PaymentMethod.find(params[:payment_method_id])
+      Spree::PaymentMethod.find(order.payments.payment_method_id)
     end  
 
 
