@@ -44,14 +44,17 @@ module Spree
      
             if verify_payment?
                payment.capture!(@amount_brx)
+               """
                @order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
               })
+              """
                @order.next
                puts @order.complete?
+               """
               if @order.complete?
                 flash.notice = Spree.t(:order_processed_successfully)
                 flash[:order_completed] = true
@@ -61,6 +64,7 @@ module Spree
               else
                 redirect_to checkout_state_path
               end
+              """
                redirect_to completion_route
             else
                redirect_to "https://burux.ir/" 
