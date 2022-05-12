@@ -77,9 +77,10 @@ module Spree
     end
 
     def payment_method
-      order = current_order || raise(ActiveRecord::RecordNotFound)
+      #order = current_order || raise(ActiveRecord::RecordNotFound)
       #payment_method_id = PaymentMethod.find(payment_method_id_param)  #Spree::Payment[:payment_method_id_param]      
-      Spree::Gateway::BrxGateway
+      #Spree::Gateway::BrxGateway
+      Spree::PaymentMethod.find(3)
     end  
 
 
