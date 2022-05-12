@@ -61,10 +61,8 @@ module Spree
                   redirect_to completion_route and return
 
                else
-                  redirect_to checkout_state_path
+                  redirect_to checkout_state_path and return
                end
-            else
-               redirect_to "https://burux.ir/" 
             end   
           end 
       end  
