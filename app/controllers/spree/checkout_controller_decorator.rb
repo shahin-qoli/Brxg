@@ -58,13 +58,11 @@ module Spree
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
-                  redirect_to completion_route
+                  redirect_to completion_route and return
 
                else
                   redirect_to checkout_state_path
                end
-         
-               redirect_to completion_route
             else
                redirect_to "https://burux.ir/" 
             end   
