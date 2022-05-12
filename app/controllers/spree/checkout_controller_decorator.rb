@@ -77,6 +77,7 @@ module Spree
     end
 
     def payment_method
+      order = current_order || raise(ActiveRecord::RecordNotFound)       
       Spree::PaymentMethod.find(order.payments.payment_method_id)
     end  
 
