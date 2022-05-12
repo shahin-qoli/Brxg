@@ -51,6 +51,7 @@ module Spree
                 }), amount: @amount_brx, payment_method: payment_method
               })
                @order.next
+               puts @order.complete?
               if @order.complete?
                 flash.notice = Spree.t(:order_processed_successfully)
                 flash[:order_completed] = true
@@ -73,7 +74,7 @@ module Spree
     end
 
     def payment_method
-      payment_method = Gateway::BrxGateway
+      payment_method = Spree::Gateway::BrxGateway
     end  
 
 

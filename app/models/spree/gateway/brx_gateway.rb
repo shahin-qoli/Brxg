@@ -1,6 +1,6 @@
 
 module Spree
-  module Gateway::BrxGateway < PaymentMethod
+  class Gateway::BrxGateway < PaymentMethod
     def provider_class
       Spree::Gateway::BrxGateway
     end
