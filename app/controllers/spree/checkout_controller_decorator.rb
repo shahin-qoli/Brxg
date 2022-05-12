@@ -72,6 +72,10 @@ module Spree
       string.titleize
     end
 
+    def payment_method
+      payment_method = Gateway::BrxGateway
+    end  
+
 
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
