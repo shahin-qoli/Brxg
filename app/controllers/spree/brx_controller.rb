@@ -18,6 +18,30 @@ module Spree
       end  
     end
 
+    def geturl(order_id, amount)
+      output = {}
+      order_id = params['orderid']
+      amount = params['amount']
+      request_url  = 'https://shop.burux.com/api/PaymentService/Request'
+      response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
+               :Type => 'Inv', 
+               :Price => amount, 
+               :Model => '{orderID: order_id}', 
+               :CallbackAction => 'RedirectToUrl',
+               :ForceRedirectBank => 'true',
+               :CallbackUrl => 'www.burux.ir',
+             }.to_json,
+      :headers => { 'Content-Type' => 'application/json' }})
+      response_object = JSON.parse(response.body)
+      output[:payment_url] = response_object['InvoiceUrl']
+      output[:request_id] = response_object['RequestID']
+      Spree::BrxExpressCheckout.create({
+          request_id: output[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
+          amount: amount, 
+          order_id: order_id
+        })
+      return output[:payment_url]
+    end 
 
 
     def getandverify(order)
