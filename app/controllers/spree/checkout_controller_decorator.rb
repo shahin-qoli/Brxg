@@ -4,9 +4,7 @@ require 'json'
 module Spree
   module CheckoutWithBrx
 
-    def geturl(order_id, amount)
-      Spree::PaymentMethod.get_payment_url(order_id, amount)
-    end
+
     # If we're currently in the checkout
     def update
       if payment_params_valid? && paying_with_brx?
@@ -15,8 +13,8 @@ module Spree
           #mollie_payment_url = "https://burux.ir/"
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
-          
-          payment_url= geturl(order_id= params['order_id'], amount= @order.amount)
+          brx = Spree::PaymentMethod.find_by_type 'Spree::Gateway::BrxGateway'
+          payment_url= brx.get_payment_url(order_id= params['order_id'], amount= @order.amount)
           #payment_url = request_api[:payment_url]
 
           """
