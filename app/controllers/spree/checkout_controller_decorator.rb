@@ -5,7 +5,7 @@ module Spree
   module CheckoutWithBrx
 
     def geturl(order_id, amount)
-      Spree::PaymentMethod.get_payment_url order_id amount
+      Spree::PaymentMethod.get_payment_url(order_id, amount)
     end
     # If we're currently in the checkout
     def update
