@@ -1,6 +1,6 @@
 
 module Spree
-  class Gateway::BrxGateway < Gateway
+  class Gateway::BrxGateway < PaymentMethod
     def provider_class
       Spree::Gateway::BrxGateway
     end
@@ -25,7 +25,7 @@ module Spree
     def purchase(amount, transaction_details, options = {})
       ActiveMerchant::Billing::Response.new(true, 'success', {}, {})
 
-    def get_payment_url(order_id, amount)
+    def self.get_payment_url(order_id, amount)
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
       response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
