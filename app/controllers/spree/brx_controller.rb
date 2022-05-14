@@ -18,7 +18,7 @@ module Spree
       end  
     end
 
-    def geturl(order_id, amount)
+    def geturl()
       output = {}
       order_id = params['orderid']
       amount = params['amount']
