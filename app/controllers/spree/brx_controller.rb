@@ -44,7 +44,7 @@ module Spree
     end 
 
 
-    def getandverify(order)
+    def getandverify()
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       @order = @checkout_brx['order_id']
