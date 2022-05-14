@@ -13,15 +13,16 @@ module Spree
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
           
-          request_api = get_payment_url
-          payment_url = request_api[:payment_url]
-
+          payment_url= Gateway::BrxGateway.get_payment_url(order_id= params['order_id'], amount= @order.amount)
+          #payment_url = request_api[:payment_url]
+          
+          """
           Spree::BrxExpressCheckout.create({
           request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
           amount: @order.amount, 
           order_id: params['order_id']
         })
-
+          """
           redirect_to payment_url
         else
           render :edit
@@ -97,7 +98,7 @@ module Spree
         true
       end  
     end
-
+"""
     def get_payment_url
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
@@ -116,6 +117,7 @@ module Spree
       output[:request_id] = response_object['RequestID']
       return output
     end  
+"""    
   end
 
 
