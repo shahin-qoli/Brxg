@@ -1,5 +1,5 @@
 module Spree
-  class PaypalController < StoreController
+  class BrxController < StoreController
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       options = {
