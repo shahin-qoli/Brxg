@@ -19,6 +19,9 @@ module Spree
     def provider
       provider_class.new
     end
+    def source_required?
+      false
+    end
     def auto_capture?
       true
     end
