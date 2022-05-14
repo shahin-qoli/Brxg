@@ -27,7 +27,7 @@ module Spree
     end
 
 
-    def self.get_payment_url(order_id, amount)
+ """   def self.get_payment_url(order_id, amount)
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
       response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
@@ -48,7 +48,7 @@ module Spree
           order_id: order_id
         })
       return output[:payment_url]
-    end 
+    end """
 
     def get_payment_url(order_id, amount)
       output = {}
