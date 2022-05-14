@@ -13,7 +13,7 @@ module Spree
           
           #MollieLogger.debug("For order #{@order.number} redirect user to payment URL: #{payment_url}")
           
-          payment_url= Gateway::BrxGateway:get_payment_url(order_id= params['order_id'], amount= @order.amount)
+          payment_url= Gateway::BrxGateway.get_payment_url(order_id= params['order_id'], amount= @order.amount)
           #payment_url = request_api[:payment_url]
 
           """
