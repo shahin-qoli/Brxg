@@ -25,8 +25,7 @@ module Spree
     def auto_capture?
       true
     end
-    def purchase(amount, transaction_details, options = {})
-      ActiveMerchant::Billing::Response.new(true, 'success', {}, {})
+
 
     def self.get_payment_url(order_id, amount)
       output = {}
@@ -39,7 +38,7 @@ module Spree
                :ForceRedirectBank => 'true',
                :CallbackUrl => 'www.burux.ir',
              }.to_json,
-    :headers => { 'Content-Type' => 'application/json' }})
+      :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
       output[:payment_url] = response_object['InvoiceUrl']
       output[:request_id] = response_object['RequestID']
@@ -50,6 +49,29 @@ module Spree
         })
       return output[:payment_url]
     end 
-    end
+
+    def get_payment_url(order_id, amount)
+      output = {}
+      request_url  = 'https://shop.burux.com/api/PaymentService/Request'
+      response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
+               :Type => 'Inv', 
+               :Price => amount, 
+               :Model => '{orderID: order_id}', 
+               :CallbackAction => 'RedirectToUrl',
+               :ForceRedirectBank => 'true',
+               :CallbackUrl => 'www.burux.ir',
+             }.to_json,
+      :headers => { 'Content-Type' => 'application/json' }})
+      response_object = JSON.parse(response.body)
+      output[:payment_url] = response_object['InvoiceUrl']
+      output[:request_id] = response_object['RequestID']
+      Spree::BrxExpressCheckout.create({
+          request_id: output[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
+          amount: amount, 
+          order_id: order_id
+        })
+      return output[:payment_url]
+    end 
+
   end  
 end
