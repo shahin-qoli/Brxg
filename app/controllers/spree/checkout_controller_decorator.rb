@@ -15,7 +15,7 @@ module Spree
           
           payment_url= Gateway::BrxGateway.get_payment_url(order_id= params['order_id'], amount= @order.amount)
           #payment_url = request_api[:payment_url]
-          
+
           """
           Spree::BrxExpressCheckout.create({
           request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
@@ -105,7 +105,7 @@ module Spree
       response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
                :Type => 'Inv', 
                :Price => @order.amount, 
-               :Model => '{PaymentTitle:"first try"}', 
+               :Model => '{PaymentTitle:}', 
                :CallbackAction => 'RedirectToUrl',
                :ForceRedirectBank => 'true',
                :CallbackUrl => 'www.burux.ir',
