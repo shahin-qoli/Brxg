@@ -50,6 +50,7 @@ module Spree
       return output[:payment_url]
     end """
 
+
     def get_payment_url(order_id, amount)
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'
