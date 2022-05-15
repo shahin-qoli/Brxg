@@ -32,13 +32,13 @@ module Spree
         super
       end
     end
-
+"""
     def getandverify
       payment = @order.payments.last
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
-          redirect_to "https://burux.com/" 
+          redirect_to "" 
       else    
           @amount_brx = @checkout_brx['amount']
 
@@ -69,7 +69,7 @@ module Spree
           end 
       end  
     end    
-  
+  """
     def cleanup string
       string.titleize
     end
@@ -81,15 +81,15 @@ module Spree
       Spree::PaymentMethod.find(3)
     end  
 
-
+"""
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       options = {
   headers: {
-    "Content-Type": "application/json",
+    ""Content-Type: ""application/json,
   },
 
-  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
+  body: [{ ""RequestID: @request_id_brx, ""Price: @amount_brx }].to_json
 }     
      
       response = HTTParty.post(request_url, options)
@@ -99,7 +99,7 @@ module Spree
         true
       end  
     end
-"""
+
     def get_payment_url
       output = {}
       request_url  = 'https://shop.burux.com/api/PaymentService/Request'

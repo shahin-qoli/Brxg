@@ -40,7 +40,7 @@ module Spree
           amount: amount, 
           order_id: order_id
         })
-      return {"payment_url": output[:payment_url]}
+      render json: {"payment_url": output[:payment_url]}
     end 
 
 
