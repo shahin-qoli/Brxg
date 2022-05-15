@@ -34,7 +34,6 @@ module Spree
     end
 
     def getandverify
-      payment = @order.payments.last
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       if @checkout_brx.nil?
@@ -47,15 +46,15 @@ module Spree
             if verify_payment?
                #redirect_to checkout_state_path(:payment)
                order = current_order || raise(ActiveRecord::RecordNotFound)               
-               order.payments.create!({
+               payment = order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
                 })
-          
                @order.next
                puts @order.complete?
+               payment.capture! 
                @order.update_payment_state
                @order.update
 
