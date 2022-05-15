@@ -55,14 +55,14 @@ module Spree
                
                puts @order.complete?
                payment = order.payments.last
-               payment.capture! 
+               #payment.capture! 
                payment.complete!
                #payment.next
                
                #@order.update_payment_state
                #@order.update
-               @order.next
-               if @order.complete?
+               order.next
+               if order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
