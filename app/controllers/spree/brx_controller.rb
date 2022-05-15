@@ -63,7 +63,7 @@ module Spree
         #  if @checkout_brx['order_id'] == params['order_id']
      
           if verify_payment?
-               #redirect_to checkout_state_path(:payment)
+               redirect_to checkout_state_path(:payment)
                @order = current_order || raise(ActiveRecord::RecordNotFound)               
                @order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
