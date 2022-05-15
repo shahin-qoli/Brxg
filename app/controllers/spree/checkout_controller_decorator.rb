@@ -55,8 +55,8 @@ module Spree
                @order.next
                puts @order.complete?
                payment.capture! 
-               @order.update_payment_state
-               @order.update
+               #@order.update_payment_state
+               #@order.update
 
                if @order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
