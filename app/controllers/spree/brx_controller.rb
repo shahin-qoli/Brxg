@@ -42,7 +42,11 @@ module Spree
         })
       render json: {"payment_url": output[:payment_url]}
     end 
+    
 
+    def payment_method
+      Spree::PaymentMethod.find(3)
+    end 
 
     def getandverify()
       @request_id_brx = params['reqid']
