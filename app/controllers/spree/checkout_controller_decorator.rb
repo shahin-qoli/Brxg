@@ -45,6 +45,7 @@ module Spree
             #started_processing!
             if verify_payment?
                #redirect_to checkout_state_path(:payment)
+               """
                order = current_order || raise(ActiveRecord::RecordNotFound)               
                @order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
@@ -52,7 +53,7 @@ module Spree
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
                 })
-               
+               """
                puts @order.complete?
                #payment = @order.payments.last
                #payment.capture! 
