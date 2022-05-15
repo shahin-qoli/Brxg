@@ -55,6 +55,8 @@ module Spree
                @order.next
                puts @order.complete?
                payment.capture! 
+               payment.complete!
+               
                #@order.update_payment_state
                #@order.update
 
