@@ -56,7 +56,7 @@ module Spree
       order_id = @checkout_brx['order_id']
       if order_id.nil?
         redirect_to 'burux.ir'
-        
+      end  
       @order = Spree::Order.find(order_id)
       #payment = @order.payments.last
       if @checkout_brx.nil?
