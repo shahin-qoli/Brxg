@@ -40,26 +40,27 @@ module Spree
           redirect_to "" 
       else    
           @amount_brx = @checkout_brx['amount']
-
+   
           if @checkout_brx['order_id'] == params['order_id']
-     
+            started_processing!
             if verify_payment?
                #redirect_to checkout_state_path(:payment)
                order = current_order || raise(ActiveRecord::RecordNotFound)               
-               payment = order.payments.create!({
+               order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
                 })
-               @order.next
+               
                puts @order.complete?
-               payment.capture! 
+               payment = @order.payment.last
+               #payment.capture! 
                payment.complete!
                
                #@order.update_payment_state
                #@order.update
-
+               @order.next
                if @order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
