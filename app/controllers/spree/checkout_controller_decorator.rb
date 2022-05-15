@@ -60,6 +60,8 @@ module Spree
                @order.next
                puts @order.complete?
                if @order.complete?
+                  payment = @order.payments.last
+                  payment.complete!
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
