@@ -54,9 +54,9 @@ module Spree
                 })
                
                puts @order.complete?
-               payment = @order.payments.last
+               #payment = @order.payments.last
                #payment.capture! 
-               payment.complete!
+               #payment.complete!
                @order.next
                puts @order.complete?
                if @order.complete?
