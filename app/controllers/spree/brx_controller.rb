@@ -53,7 +53,8 @@ module Spree
     def getandverify()
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
-      #@order = Spree::Order.find(@checkout_brx['order_id'])
+      order_id = @checkout_brx['order_id']
+      @order = Spree::Order.find(order_id)
       #payment = @order.payments.last
       if @checkout_brx.nil?
           redirect_to "https://burux.com/" 
