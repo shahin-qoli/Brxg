@@ -32,7 +32,7 @@ module Spree
         super
       end
     end
-"""
+
     def getandverify
       payment = @order.payments.last
       @request_id_brx = params['reqid']
@@ -69,7 +69,8 @@ module Spree
           end 
       end  
     end    
-  """
+ 
+
     def cleanup string
       string.titleize
     end
