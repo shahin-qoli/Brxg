@@ -29,7 +29,7 @@ module Spree
                :Model => '{orderID: order_id}', 
                :CallbackAction => 'RedirectToUrl',
                :ForceRedirectBank => 'true',
-               :CallbackUrl => 'www.burux.ir',
+               :CallbackUrl => 'localhost:4000/bankpayment/{reqid}/{payid}/{type}',
              }.to_json,
       :headers => { 'Content-Type' => 'application/json' }})
       response_object = JSON.parse(response.body)
