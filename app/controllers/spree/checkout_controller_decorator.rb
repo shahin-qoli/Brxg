@@ -42,7 +42,7 @@ module Spree
           @amount_brx = @checkout_brx['amount']
    
           if @checkout_brx['order_id'] == params['order_id']
-            started_processing!
+            #started_processing!
             if verify_payment?
                #redirect_to checkout_state_path(:payment)
                order = current_order || raise(ActiveRecord::RecordNotFound)               
