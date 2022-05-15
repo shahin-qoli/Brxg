@@ -50,14 +50,14 @@ module Spree
       Spree::PaymentMethod.find(3)
     end 
 
-    def getandverify()
+    def getandverify
       @request_id_brx = params['reqid']
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
       order_id = @checkout_brx['order_id']
       if order_id.nil?
         redirect_to 'burux.ir'
       end  
-      @order = Spree::Order.find(order_id)
+      #@order = Spree::Order.find(order_id)
       #payment = @order.payments.last
       if @checkout_brx.nil?
           redirect_to "https://burux.com/" 
@@ -68,7 +68,7 @@ module Spree
      
           if verify_payment?
                redirect_to checkout_state_path(:payment)
-               @order = current_order || raise(ActiveRecord::RecordNotFound)               
+               order = current_order || raise(ActiveRecord::RecordNotFound)               
                @order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
