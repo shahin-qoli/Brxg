@@ -56,6 +56,9 @@ module Spree
           
                @order.next
                puts @order.complete?
+               @order.update_payment_state
+               @order.update
+
                if @order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
@@ -96,7 +99,7 @@ module Spree
       response = HTTParty.post(request_url, options)
 
       response_object = JSON.parse(response.body.tr('[]',''))
-      if response_object['IsSuccess'] == true
+      if response_object['IsSuccess'] == false
         true
       end  
     end
