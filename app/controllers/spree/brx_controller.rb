@@ -92,26 +92,17 @@ module Spree
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE " 
-               """         
-               @order.payments.create!({
-                source: Spree::BrxExpressCheckout.create({
-                  request_id: @request_id_brx,
-                  amount: @amount_brx
-                }), amount: @amount_brx, payment_method: payment_method
-                })
-
-               """
                puts @order
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE "
-               @order.next
+               order.next
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts @order               
                #puts @order.complete?
-               if @order.complete?
+               if order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
