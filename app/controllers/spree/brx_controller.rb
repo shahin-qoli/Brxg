@@ -42,8 +42,8 @@ module Spree
         })
       render json: {"payment_url": output[:payment_url]}
     end 
-    def completion_route(custom_params = {})
-      spree.order_path(@order, custom_params.merge(locale: locale_param))
+    def completion_route(order, custom_params = {})
+      spree.order_path(order, custom_params.merge(locale: locale_param))
     end
 
     def payment_method
@@ -106,10 +106,10 @@ module Spree
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
-                  redirect_to(completion_route) and return
+                  redirect_to(completion_route(order)) && return
 
                else
-                  redirect_to(checkout_state_path) and return
+                  redirect_to(checkout_state_path) && return
                end
           end   
          # end 
