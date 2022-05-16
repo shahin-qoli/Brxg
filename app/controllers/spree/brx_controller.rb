@@ -92,17 +92,17 @@ module Spree
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE " 
-               puts @order
+               puts @order_brx
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE "
-               order.next
+               @order_brx.next
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE "
-               puts @order               
+               puts @order_brx             
                #puts @order.complete?
-               if order.complete?
+               if @order_brx.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
