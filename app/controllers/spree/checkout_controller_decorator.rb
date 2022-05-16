@@ -92,12 +92,11 @@ module Spree
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       options = {
-  headers: {
-    "Content-Type": "application/json",
-  },
+      headers: {
+      "Content-Type": "application/json",
+      },
 
-  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
-}     
+      body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json}     
      
       response = HTTParty.post(request_url, options)
 
