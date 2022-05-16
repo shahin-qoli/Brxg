@@ -49,6 +49,24 @@ module Spree
     def payment_method
       Spree::PaymentMethod.find(3)
     end 
+    
+    def verify_payment?
+      request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
+      options = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+
+  body: [{ "RequestID": @request_id_brx, "Price": @amount_brx }].to_json
+}     
+     
+      response = HTTParty.post(request_url, options)
+
+      response_object = JSON.parse(response.body.tr('[]',''))
+      if response_object['IsSuccess'] == true
+        true
+      end  
+    end
 
     def getandverify
       @request_id_brx = params['reqid']
