@@ -103,7 +103,7 @@ module Spree
                puts @order_brx             
                #puts @order.complete?
                if @order_brx.complete?
-                  payment = @order.payments.last
+                  payment = @order_brx.payments.last
                   payment.complete!                
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
