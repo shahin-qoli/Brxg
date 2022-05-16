@@ -35,22 +35,15 @@ module Spree
 
     def getandverify
       @request_id_brx = params['reqid']
-
-
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
-
-      puts @checkout_brx['order_id']
-  
       if @checkout_brx.nil?
+          redirect_to "" 
       else    
           @amount_brx = @checkout_brx['amount']
-          @order_id_brx = @checkout_brx['order_id']
-
    
-          #if @checkout_brx['order_id'] == params['order_id']
-          @order_brx = Spree::Order.find(@order_id_brx)
+          if @checkout_brx['order_id'] == params['order_id']
             #started_processing!
-          if verify_payment?
+            if verify_payment?
                #redirect_to checkout_state_path(:payment)
                """
                order = current_order || raise(ActiveRecord::RecordNotFound)               
@@ -61,40 +54,25 @@ module Spree
                 }), amount: @amount_brx, payment_method: payment_method
                 })
                """
-             @order_brx.next  
-             puts @order_brx.complete?
-             @order_brx.next 
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts(@order_brx.next)
-             puts @order_brx.complete?
+               puts @order.complete?
                #payment = @order.payments.last
                #payment.capture! 
                #payment.complete!
-             @order_brx.next
-             puts @order_brx.complete?
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts "the request id is HERE "
-             puts(@order_brx.next)
+               @order.next
+               puts @order.complete?
+               if @order.complete?
+                  payment = @order.payments.last
+                  payment.complete!
+                  flash.notice = Spree.t(:order_processed_successfully)
+                  flash[:order_completed] = true
+                  session[:order_id] = nil
+                  redirect_to(completion_route) and return
 
-             if @order_brx.complete?
-                payment = @order_brx.payments.last
-                payment.complete!
-                flash.notice = Spree.t(:order_processed_successfully)
-                flash[:order_completed] = true
-                session[:order_id] = nil
-                redirect_to(completion_route) and return
-             else
-                redirect_to(checkout_state_path) and return
-             end
-          end   
-          #end 
+               else
+                  redirect_to(checkout_state_path) and return
+               end
+            end   
+          end 
       end  
     end    
  
