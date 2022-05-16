@@ -35,9 +35,21 @@ module Spree
 
     def getandverify
       @request_id_brx = params['reqid']
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
+
+      puts @checkout_brx['order_id']
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
+      puts "the request id is HERE "
       if @checkout_brx.nil?
-          redirect_to "" 
       else    
           @amount_brx = @checkout_brx['amount']
           @order_id_brx = @checkout_brx['order_id']
