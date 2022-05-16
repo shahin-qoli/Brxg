@@ -35,20 +35,12 @@ module Spree
 
     def getandverify
       @request_id_brx = params['reqid']
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
+
 
       @checkout_brx = Spree::BrxExpressCheckout.find_by request_id: @request_id_brx 
 
       puts @checkout_brx['order_id']
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
-      puts "the request id is HERE "
+  
       if @checkout_brx.nil?
       else    
           @amount_brx = @checkout_brx['amount']
@@ -69,11 +61,28 @@ module Spree
                 }), amount: @amount_brx, payment_method: payment_method
                 })
                """
+             @order_brx.next  
+             puts @order_brx.complete?
+             @order_brx.next 
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts(@order_brx.next)
              puts @order_brx.complete?
                #payment = @order.payments.last
                #payment.capture! 
                #payment.complete!
              @order_brx.next
+             puts @order_brx.complete?
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts "the request id is HERE "
+             puts(@order_brx.next)
+
              if @order_brx.complete?
                 payment = @order_brx.payments.last
                 payment.complete!
