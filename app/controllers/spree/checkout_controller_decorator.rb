@@ -106,7 +106,7 @@ module Spree
       end  
     end
 
-
+  end
   module CheckoutControllerDecorator
 
     def payment_method_id_param
