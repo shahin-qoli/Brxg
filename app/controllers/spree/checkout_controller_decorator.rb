@@ -43,10 +43,10 @@ module Spree
           @order_id_brx = @checkout_brx['order_id']
 
    
-          if @checkout_brx['order_id'] == params['order_id']
-            @order_brx = Spree::Orders.find(@order_brx)
+          #if @checkout_brx['order_id'] == params['order_id']
+          @order_brx = Spree::Orders.find(@order_brx)
             #started_processing!
-            if verify_payment?
+          if verify_payment?
                #redirect_to checkout_state_path(:payment)
                """
                order = current_order || raise(ActiveRecord::RecordNotFound)               
@@ -57,23 +57,23 @@ module Spree
                 }), amount: @amount_brx, payment_method: payment_method
                 })
                """
-               puts @order_brx.complete?
+             puts @order_brx.complete?
                #payment = @order.payments.last
                #payment.capture! 
                #payment.complete!
-               @order_brx.next
-               if @order_brx.complete?
-                  payment = @order_brx.payments.last
-                  payment.complete!
-                  flash.notice = Spree.t(:order_processed_successfully)
-                  flash[:order_completed] = true
-                  session[:order_id] = nil
-                  redirect_to(completion_route) and return
-               else
-                  redirect_to(checkout_state_path) and return
-               end
-            end   
-          end 
+             @order_brx.next
+             if @order_brx.complete?
+                payment = @order_brx.payments.last
+                payment.complete!
+                flash.notice = Spree.t(:order_processed_successfully)
+                flash[:order_completed] = true
+                session[:order_id] = nil
+                redirect_to(completion_route) and return
+             else
+                redirect_to(checkout_state_path) and return
+             end
+          end   
+          #end 
       end  
     end    
  
