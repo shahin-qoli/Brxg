@@ -67,8 +67,13 @@ module Spree
         #  if @checkout_brx['order_id'] == params['order_id']
      
           if verify_payment?
-               redirect_to checkout_state_path(:payment)
-               order = current_order || raise(ActiveRecord::RecordNotFound)      
+               order = current_order || raise(ActiveRecord::RecordNotFound)     
+               @order_id_brx = @checkout_brx['order_id']
+               @order_brx = Spree::Order.find(@order_id_brx)   
+               puts order            
+               puts "the request id is HERE "
+               puts "the request id is HERE "
+               puts "the request id is HERE " 
                """         
                @order.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
@@ -76,11 +81,17 @@ module Spree
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
                 })
-               puts "the request id is HERE "
-               puts "the request id is HERE "
-               puts "the request id is HERE "
+
                """
+               puts @order
+               puts "the request id is HERE "
+               puts "the request id is HERE "
+               puts "the request id is HERE "
                @order.next
+               puts "the request id is HERE "
+               puts "the request id is HERE "
+               puts "the request id is HERE "
+               puts @order               
                #puts @order.complete?
                if @order.complete?
                   flash.notice = Spree.t(:order_processed_successfully)
