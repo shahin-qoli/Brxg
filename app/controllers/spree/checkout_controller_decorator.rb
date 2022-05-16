@@ -56,7 +56,7 @@ module Spree
 
    
           #if @checkout_brx['order_id'] == params['order_id']
-          @order_brx = Spree::Order.find(@order_brx)
+          @order_brx = Spree::Order.find(@order_id_brx)
             #started_processing!
           if verify_payment?
                #redirect_to checkout_state_path(:payment)
