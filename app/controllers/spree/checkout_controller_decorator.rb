@@ -17,13 +17,13 @@ module Spree
           payment_url= brx.get_payment_url(order_id= params['order_id'], amount= @order.amount)
           #payment_url = request_api[:payment_url]
 
-          """
           Spree::BrxExpressCheckout.create({
           request_id: request_api[:request_id],  #53593b29-81c2-4f4b-afa3-a2d96a32c92c
           amount: @order.amount, 
           order_id: params['order_id']
         })
-          """
+          puts "hereeeeeeeeeeeeeeeeee"
+          puts params['order_id']
           redirect_to payment_url
         else
           render :edit
@@ -106,27 +106,6 @@ module Spree
         true
       end  
     end
-
-    def get_payment_url
-      output = {}
-      request_url  = 'https://shop.burux.com/api/PaymentService/Request'
-      response = HTTParty.post(request_url, { :body => { :App => 'Spree', 
-               :Type => 'Inv', 
-               :Price => @order.amount, 
-               :Model => '{PaymentTitle:}', 
-               :CallbackAction => 'RedirectToUrl',
-               :ForceRedirectBank => 'true',
-               :CallbackUrl => 'http://bshop.burux.com/bankpayment/{reqid}/{payid}/{type}',
-             }.to_json,
-    :headers => { 'Content-Type' => 'application/json' }})
-      response_object = JSON.parse(response.body)
-      
-      output[:payment_url] = response_object['InvoiceUrl']
-      output[:request_id] = response_object['RequestID']
-      return output
-    end  
-   
-  end
 
 
   module CheckoutControllerDecorator
