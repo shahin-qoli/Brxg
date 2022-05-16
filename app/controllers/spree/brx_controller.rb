@@ -103,10 +103,12 @@ module Spree
                puts @order_brx             
                #puts @order.complete?
                if @order_brx.complete?
+                  payment = @order.payments.last
+                  payment.complete!                
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
-                  redirect_to(completion_route(order)) && return
+                  redirect_to(completion_route(@order_brx)) && return
 
                else
                   redirect_to(checkout_state_path) && return
