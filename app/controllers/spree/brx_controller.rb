@@ -49,7 +49,7 @@ module Spree
     def payment_method
       Spree::PaymentMethod.find(3)
     end 
-    
+
     def verify_payment?
       request_url  = 'https://shop.burux.com/api/PaymentService/Verify'
       options = {
@@ -63,7 +63,7 @@ module Spree
       response = HTTParty.post(request_url, options)
 
       response_object = JSON.parse(response.body.tr('[]',''))
-      if response_object['IsSuccess'] == true
+      if response_object['IsSuccess'] == false
         true
       end  
     end
