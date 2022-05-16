@@ -40,8 +40,11 @@ module Spree
           redirect_to "" 
       else    
           @amount_brx = @checkout_brx['amount']
+          @order_id_brx = @checkout_brx['order_id']
+
    
           if @checkout_brx['order_id'] == params['order_id']
+            @order_brx = Spree::Orders.find(@order_brx)
             #started_processing!
             if verify_payment?
                #redirect_to checkout_state_path(:payment)
@@ -54,14 +57,13 @@ module Spree
                 }), amount: @amount_brx, payment_method: payment_method
                 })
                """
-               puts @order.complete?
+               puts @order_brx.complete?
                #payment = @order.payments.last
                #payment.capture! 
                #payment.complete!
-               @order.next
-               puts @order.complete?
-               if @order.complete?
-                  payment = @order.payments.last
+               @order_brx.next
+               if @order_brx.complete?
+                  payment = @order_brx.payments.last
                   payment.complete!
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
