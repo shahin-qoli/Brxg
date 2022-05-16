@@ -67,7 +67,6 @@ module Spree
                   flash[:order_completed] = true
                   session[:order_id] = nil
                   redirect_to(completion_route) and return
-
                else
                   redirect_to(checkout_state_path) and return
                end
