@@ -93,8 +93,7 @@ module Spree
                   request_id: @request_id_brx,
                   amount: @amount_brx
                 }), amount: @amount_brx, payment_method: payment_method
-                })
-               puts order            
+                })         
                puts "the request id is HERE "
                puts "the request id is HERE "
                puts "the request id is HERE " 
