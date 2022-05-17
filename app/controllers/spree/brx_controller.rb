@@ -85,7 +85,7 @@ module Spree
         #  if @checkout_brx['order_id'] == params['order_id']
      
           if verify_payment?
-               order = current_order || raise(ActiveRecord::RecordNotFound)     
+               #order = current_order || raise(ActiveRecord::RecordNotFound)     
                @order_id_brx = @checkout_brx['order_id']
                @order_brx = Spree::Order.find(@order_id_brx)   
                @order_brx.payments.create!({
