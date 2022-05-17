@@ -88,7 +88,7 @@ module Spree
                order = current_order || raise(ActiveRecord::RecordNotFound)     
                @order_id_brx = @checkout_brx['order_id']
                @order_brx = Spree::Order.find(@order_id_brx)   
-               @@order_brx.payments.create!({
+               @order_brx.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
                   amount: @amount_brx
