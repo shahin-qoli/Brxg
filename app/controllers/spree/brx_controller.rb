@@ -42,6 +42,10 @@ module Spree
         })
       render json: {"payment_url": output[:payment_url]}
     end 
+    def completion_route_brx(orderid)
+      "http://172.16.4.149:3000/checkout/thank-you?order=#{orderid}"
+    end
+
     def completion_route(order, custom_params = {})
       spree.order_path(order, custom_params.merge(locale: locale_param))
     end
@@ -87,7 +91,8 @@ module Spree
           if verify_payment?
                #order = current_order || raise(ActiveRecord::RecordNotFound)     
                @order_id_brx = @checkout_brx['order_id']
-               @order_brx = Spree::Order.find(@order_id_brx)   
+               @order_brx = Spree::Order.find(@order_id_brx)
+               @order_brx_number = @order_brx.number   
                @order_brx.payments.create!({
                 source: Spree::BrxExpressCheckout.create({
                   request_id: @request_id_brx,
@@ -113,7 +118,7 @@ module Spree
                   flash.notice = Spree.t(:order_processed_successfully)
                   flash[:order_completed] = true
                   session[:order_id] = nil
-                  redirect_to(completion_route(@order_brx)) && return
+                  redirect_to(completion_route_brx(@order_brx_number)) && return
 
                else
                   redirect_to(checkout_state_path) && return
