@@ -13,16 +13,19 @@ require 'json'
 }     
      
       response = HTTParty.post(request_url, options)
-      puts response.code
+      #puts response.code
       response_object = JSON.parse(response.body.tr('[]',''))             
       if response_object['IsSuccess'] == false
-         true
+         false
       end  
     end
 
+    def verifysth?
+      true
+    end
+   
+   def test 
+      return true if verifysth? || verify_payment?
+   end                
 
-if verify_payment?
-   puts "on"
-  
-end                
-
+puts test
